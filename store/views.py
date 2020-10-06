@@ -5,7 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 import json
 import datetime
 from .models import * 
-from .utils import cookieCart, cartData, guestOrder
+from .utils import cookieCart, cartData, guestOrder 
+from store.forms import CustomUserCreationForm
 
 def store(request):
 	data = cartData(request)
@@ -40,13 +41,14 @@ def checkout(request):
 	return render(request, 'store/checkout.html', context)
 
 def register(request):
-	form = UserCreationForm()
+	form = CustomUserCreationForm()
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)	
+		form = CustomUserCreationForm(request.POST)	
 	if form.is_valid():
 		form.save()
 		
 	context = {'form': form}
+	
 	return render(request, 'store/register.html', context)
 
 
