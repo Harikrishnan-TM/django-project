@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
+
+from django.contrib import messages
 import json
 import datetime
 from .models import * 
@@ -46,6 +48,9 @@ def register(request):
 		form = CustomUserCreationForm(request.POST)	
 	if form.is_valid():
 		form.save()
+		user = form.cleaned_data.get('username')
+		messages.success(request, 'account was created for ' + user)
+		return redirect('login')
 		
 	context = {'form': form}
 	
