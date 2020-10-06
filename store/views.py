@@ -55,7 +55,7 @@ def register(request):
 def login(request):
 	
 	context = {}
-	return render(request, 'storelogin.html', context)
+	return render(request, 'store/login.html', context)
 
 
 def updateItem(request):
